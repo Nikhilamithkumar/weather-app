@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 function App() {
 
 
-  const API_KEY = "82d54491a1c215a8026ed129dae9895f";
+  const API_KEY = import.meta.env.VITE_API_KEY;
   const [weatherData,setWeatherData] = useState(null);
   const[city,setCity] = useState("Chennai");
   const [forecast,setForecast] = useState([])
@@ -31,6 +31,8 @@ function App() {
       setForecast(dailyForecast);
     }catch(error) {
       setError("Couldnt fetch data,please try again")
+      setWeatherData(null);
+      setForecast([]);
     }finally{
       setLoading(false)
     }
