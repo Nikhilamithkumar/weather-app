@@ -12,7 +12,7 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
 
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
 
   const fetchWeatherData  = async (cityName) =>{
@@ -22,7 +22,7 @@ function App() {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`;   
       const response = await fetch(url);
       const data = await response.json();
-      setWeatherData(data);
+      setWeatherData(data);  
       const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric`);
       const forecastData = await forecastResponse.json();
       const dailyForecast = forecastData.list.filter(
@@ -83,6 +83,10 @@ function App() {
             <div >
               <p >Humidity</p>
               <p>{Math.round(weatherData.main.humidity)}%</p>
+            </div>
+            <div>
+              <p>Feels Like</p>
+              <p>{Math.round(weatherData.main.feels_like)}°C</p>
             </div>
             <div>
               <p>Wind Speed</p>
