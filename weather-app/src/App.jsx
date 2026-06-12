@@ -40,6 +40,7 @@ function App() {
   function handleSearch(e) {
     e.preventDefault();
     fetchWeatherData(searchInput);
+    setSearchInput("")
   }
 
   useEffect(()=>{
@@ -58,9 +59,10 @@ function App() {
 
   return (
    <>
-   <div className = "wrapper">
-
-      <form onSubmit={handleSearch} className = 'search-form'>
+   <div className ='header'>
+    <div className='title-container'>
+    </div>
+    <form onSubmit={handleSearch} className = 'search-form'>
         <input type='text'
          value ={searchInput}
           onChange={(e)=>setSearchInput(e.target.value)}
@@ -70,25 +72,28 @@ function App() {
           <img src="/src/assets/search.webp" alt="Search"/>
         </button>
       </form>
+   </div>
+   <div className = "wrapper">
+      
       {error && (<p className="error">{error}</p>)}
 
       {weatherData && weatherData.main && weatherData.weather && (
         <>
           <div className="header">
             <h1 className="city">{weatherData.name}</h1>
-            <p className="temperature">{weatherData.main.temp}°C</p>
+            <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
             <p className="condition">{weatherData.weather[0].main}</p>
           </div>
           <div className="weather-details">
-            <div >
+            <div className='weather-detail-container'>
               <p >Humidity</p>
               <p>{Math.round(weatherData.main.humidity)}%</p>
             </div>
-            <div>
+            <div className='weather-detail-container'>
               <p>Feels Like</p>
               <p>{Math.round(weatherData.main.feels_like)}°C</p>
             </div>
-            <div>
+            <div className='weather-detail-container'>
               <p>Wind Speed</p>
               <p>{Math.round(weatherData.wind.speed)} Kmph</p>
             </div>
